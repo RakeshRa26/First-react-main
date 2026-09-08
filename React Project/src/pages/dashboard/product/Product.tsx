@@ -1,5 +1,9 @@
+
+
+
 import { useState } from "react";
 import { Icon } from "@iconify/react";
+import { NavLink } from "react-router";
 
 interface Product {
     id: number;
@@ -79,6 +83,7 @@ const Product = () => {
                 </div>
 
                 {/* Add Product Button */}
+                <NavLink to="/user-dashboard/product-create">
                 <button
                     type="button"
                     className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-teal-950 text-white rounded-xl font-medium hover:bg-teal-900 transition"
@@ -86,6 +91,7 @@ const Product = () => {
                     <Icon icon="mdi:plus" className="text-xl" />
                     Add Product
                 </button>
+                </NavLink>
 
             </div>
 
@@ -329,7 +335,7 @@ const Product = () => {
 
                                     {/* Price */}
                                     <td className="px-6 py-4 text-sm font-semibold text-gray-800">
-                                        ${product.price.toFixed(2)}
+                                        Rs. {product.price.toFixed(2)}
                                     </td>
 
 

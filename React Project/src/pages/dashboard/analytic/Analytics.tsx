@@ -4,7 +4,7 @@ const Analytics = () => {
   const stats = [
     {
       title: "Total Revenue",
-      value: "$24,580",
+      value: "RS. 24,580",
       change: "+12.5%",
       icon: "solar:dollar-minimalistic-bold",
       positive: true,
@@ -49,31 +49,31 @@ const Analytics = () => {
       name: "Wireless Headphones",
       category: "Electronics",
       sales: 245,
-      revenue: "$14,455",
+      revenue: "RS. 14,455",
     },
     {
       name: "Smart Watch",
       category: "Electronics",
       sales: 189,
-      revenue: "$12,210",
+      revenue: "RS. 12,210",
     },
     {
       name: "Running Shoes",
       category: "Sports",
       sales: 156,
-      revenue: "$11,698",
+      revenue: "RS. 11,698",
     },
     {
       name: "Leather Backpack",
       category: "Accessories",
       sales: 124,
-      revenue: "$5,580",
+      revenue: "RS. 5,580",
     },
     {
       name: "Cotton T-Shirt",
       category: "Clothing",
       sales: 98,
-      revenue: "$2,449",
+      revenue: "RS. 2,449",
     },
   ];
 
@@ -192,7 +192,7 @@ const Analytics = () => {
                   className="flex-1 h-full flex flex-col justify-end items-center gap-2"
                 >
                   <div className="text-xs text-gray-500 hidden sm:block">
-                    ${item.sales}
+                    Rs. {item.sales}
                   </div>
 
                   <div

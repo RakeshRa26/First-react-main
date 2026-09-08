@@ -93,3 +93,8 @@ function ComponentName({propsName, ..., children}: Readonly<{propsName: DataType
 
   # hook form hanlding 
   -React hook form
+
+
+  ## Task
+  - *Iontrolled Input*
+  - *Incontrolled Input*

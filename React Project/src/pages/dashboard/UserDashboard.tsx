@@ -1,6 +1,6 @@
 // import { useState } from "react";
 
-import { Outlet } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import { Icon } from "@iconify/react";
 
 
@@ -13,7 +13,7 @@ export default function UserDashboard() {
 
                 {/* *****************  SIDEBAR ***************** */}
 
-                <aside className="fixed top-0 left-0 z-0 h-screen w-64 bg-teal-950 text-white transition-transform duration-300 lg:translate-x-0">
+                <div className="fixed top-0 left-0 z-0 h-screen w-64 bg-teal-950 text-white transition-transform duration-300 lg:translate-x-0">
 
                     {/* LOGO */}
                     <div className="h-20 flex items-center px-6 border-b border-white/10">
@@ -39,75 +39,75 @@ export default function UserDashboard() {
                             Main Menu
                         </p>
 
-                        <a
-                            href="/dashboardHome"
+                        <NavLink
+                            to ="/dashboardHome"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl bg-white text-teal-950 font-semibold"
                         >
                             <Icon icon={"akar-icons:dashboard"} width={18}/>
                             Dashboard
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="/user-dashboard/usersPage"
+                        <NavLink
+                            to="/user-dashboard/usersPage"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                             <Icon icon={"flowbite:users-solid"} width={18}/>
                             Users
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="/user-dashboard/product"
+                        <NavLink
+                            to="/user-dashboard/products"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                             <Icon icon={"eos-icons:products"} width={18}/>
                             Products
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="/user-dashboard/order"
+                        <NavLink
+                            to="/user-dashboard/order"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                            <Icon icon={"fluent-mdl2:reservation-orders"} width={18}/>
                             Orders
 
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="/user-dashboard/categories"
+                        <NavLink
+                            to="/user-dashboard/categories"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                            <Icon icon={"carbon:product-categories"} width={18}/>
                             Categories
 
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="/user-dashboard/analytics"
+                        <NavLink
+                            to="/user-dashboard/analytics"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                            <Icon icon={"fluent:data-trending-16-filled"} width={18}/>
                             Analytics
-                        </a>
+                        </NavLink>
 
                         <p className="px-3 pt-4 pb-2 text-xs uppercase tracking-wider text-white/40">
                             Management
                         </p>
 
-                        <a
-                            href="#"
+                        <NavLink
+                            to="#"
                             className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                             <Icon icon={"material-symbols:payments-outline-sharp"} width={18}/>
                             Payments
-                        </a>
+                        </NavLink>
 
-                        <a
-                            href="#"
+                        <NavLink
+                            to="#"
                             className="flex items-center gap-3 px-4 py-3  rounded-xl text-white/70 hover:bg-white/10 hover:text-white transition"
                         >
                             <Icon icon={"fontisto:player-settings"} width={18}/>
                             Settings
-                        </a>
+                        </NavLink>
 
                     </nav>
 
@@ -139,7 +139,7 @@ export default function UserDashboard() {
 
                     </div>
 
-                </aside>
+                </div>
 
                 <section>
 

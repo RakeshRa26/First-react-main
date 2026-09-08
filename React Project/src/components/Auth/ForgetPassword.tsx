@@ -1,4 +1,5 @@
 
+import { NavLink } from "react-router";
 import { PageTitle2 } from "../ui/typography/Title"
 
 
@@ -57,12 +58,12 @@ const ForgotPassword = () => {
 
         {/* Back to Login */}
         <div className="mt-6 text-center">
-          <a
-            href="/login"
+          <NavLink
+            to="/login"
             className="text-sm font-medium text-blue-600 hover:underline"
           >
             ← Back to Login
-          </a>
+          </NavLink>
         </div>
 
       </div>

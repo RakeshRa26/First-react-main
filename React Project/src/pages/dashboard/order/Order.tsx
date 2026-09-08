@@ -360,7 +360,7 @@ const Order = () => {
                   {/* Amount */}
                   <td className="px-6 py-4">
                     <span className="font-semibold text-gray-800">
-                      ${order.amount.toFixed(2)}
+                      Rs. {order.amount.toFixed(2)}
                     </span>
                   </td>
 

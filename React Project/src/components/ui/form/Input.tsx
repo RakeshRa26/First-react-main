@@ -18,3 +18,24 @@ export const InputComponent = ({ type, name, placeholder, onChange }: InputCompo
     />
   );
 };
+
+
+export const SelectComponentTypesProps = R
+
+
+export const SelectComponent = ({name, className='', option}) => {
+  return (
+         <select
+                id="role"
+                name="role"
+                defaultValue=""
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-teal-950"
+              >
+                <option value="" disabled>
+                  ~~ Select Role ~~
+                </option>
+                <option value="user">User</option>
+                <option value="admin">Admin</option>
+              </select>
+  )
+}

@@ -2,6 +2,7 @@ import { useState, type BaseSyntheticEvent } from "react";
 import {InputComponent} from "../ui/form/Input"
 import { PageTitle2 } from "../ui/typography/Title";
 import { Icon } from "@iconify/react";
+import { NavLink } from "react-router";
 
 export const LoginForm = () => {
   const [credentials, setCredentials] = useState({
@@ -88,12 +89,12 @@ export const LoginForm = () => {
       </div>
 
       <div className="w-full flex items-center justify-end">
-        <a
+        <NavLink
           className="text-sm text-teal-800 italic underline hover:scale-102 transition duration-300"
-          href="/forget-password"
+          to="/forget-password"
         >
           Forget Password?
-        </a>
+        </NavLink>
       </div>
 
       <div className="w-full flex gap-3 items-center">
@@ -122,12 +123,12 @@ export const LoginForm = () => {
       <div className="w-full flex items-center justify-center">
         <button className="text-sm text-teal-800 italic">
           Don't have an account?{" "}
-          <a
+          <NavLink
             className="text-sm text-teal-800 italic underline hover:scale-102 transition duration-300"
-            href="/register"
+            to="/register"
           >
             Register
-          </a>
+          </NavLink>
         </button>
       </div>
     </form>
