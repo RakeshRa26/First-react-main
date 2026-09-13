@@ -1,216 +1,312 @@
 
-import { InputComponent } from "../ui/form/Input";
-import { PageTitle2 } from "../ui/typography/Title";
-import { NavLink } from "react-router/internal/react-server-client";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  InputComponent,
+  MultipleChoice,
+  SelectComponent,
+} from "../ui/form/Input";
+import { Icon } from "@iconify/react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "../ui/button/Button";
 
-export const RegistrationForm = () => {
+const RegisterDTO = z
+  .object({
+    fullName: z
+      .string()
+      .min(2, "Fullname must have at least 2 characters")
+      .max(50, "Fullname cannot have more than 50 characters"),
 
-  // Data store for submission
-  // event manage
-  // validate data
-  // 
+    email: z
+      .string()
+      .email("Invalid email format")
+      .min(1, "Email is required"),
 
+    password: z
+      .string()
+      .min(8, "Password must have at least 8 characters")
+      .max(32, "Password cannot have more than 32 characters"),
+
+    confirmPassword: z
+      .string()
+      .min(8, "Confirm password must have at least 8 characters")
+      .max(32, "Confirm password cannot have more than 32 characters"),
+
+    role: z.string().min(1, "Role is required"),
+
+    gender: z.string().min(1, "Gender is required"),
+
+    address: z.string().optional(),
+
+    image: z
+      .instanceof(FileList)
+      .optional(),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
+  });
+
+export type RegisterDataType = z.infer<typeof RegisterDTO>;
+
+export default function RegisterForm() {
+  const {
+    control,
+    handleSubmit,
+    register,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterDataType>({
+    defaultValues: {
+      fullName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      gender: "",
+      role: "",
+      address: "",
+    },
+
+    resolver: zodResolver(RegisterDTO),
+  });
+
+  const registerUser = (data: RegisterDataType) => {
+    console.log(data);
+  };
 
   return (
-    <div className="min-h-screen w-full bg-white flex items-center justify-center px-4 py-10">
+    <section className="w-full overflow-y-scroll">
+      <form
+        onSubmit={handleSubmit(registerUser)}
+        className="w-full max-w-4xl mx-auto flex flex-col gap-4 px-2 sm:px-4"
+      >
+        {/* Full Name */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="fullName"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold wrap-break-word"
+          >
+            Full Name:
+          </label>
 
-      {/* Main Registration Container */}
-      <div className="w-full max-w-md">
-
-        {/* Heading */}
-        <div className="text-center mb-8">
-          <PageTitle2
-            title="Registration Form"
-            className="text-center text-teal-950 text-2xl font-bold"
-          />
-
-          <p className="mt-3 text-teal-900 font-semibold text-sm sm:text-base">
-            Create a new account to get started!
-          </p>
+          <div className="w-full md:w-2/3 min-w-0">
+            <InputComponent
+              type="text"
+              name="fullName"
+              placeholder="Enter your fullname..."
+              control={control}
+              errMsg={errors.fullName?.message}
+            />
+          </div>
         </div>
 
-        {/* Registration Form */}
-        <form
-          className="w-full space-y-5"
-        >
+        {/* Email */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="email"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold wrap-break-word"
+          >
+            Email (Username):
+          </label>
 
-          {/* Full Name */}
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="fullname"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Full Name:
-            </label>
-
-            <div className="flex-1">
-              <InputComponent
-                type="text"
-                name="fullname"
-                placeholder="Enter Your full name..."
-                onChange={() => { }}
-              />
-            </div>
+          <div className="w-full md:w-2/3 min-w-0">
+            <InputComponent
+              control={control}
+              type="email"
+              name="email"
+              placeholder="Enter your email..."
+              errMsg={errors.email?.message}
+            />
           </div>
+        </div>
 
-          {/* Email */}
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="email"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Email:
-            </label>
+        {/* Password */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="password"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold"
+          >
+            Password:
+          </label>
 
-            <div className="flex-1">
-              <InputComponent
-                type="email"
-                name="email"
-                placeholder="Enter Your Email..."
-                onChange={() => { }}
-              />
-            </div>
+          <div className="w-full md:w-2/3 min-w-0">
+            <InputComponent
+              control={control}
+              type="password"
+              name="password"
+              placeholder="Enter your password..."
+              errMsg={errors.password?.message}
+            />
           </div>
+        </div>
 
-          {/* Password */}
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="password"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Password:
-            </label>
+        {/* Confirm Password */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="confirmPassword"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold wrap-break-word"
+          >
+            Re-Type Password:
+          </label>
 
-            <div className="flex-1">
-              <InputComponent
-                type="password"
-                name="password"
-                placeholder="Enter Your Password..."
-                onChange={() => { }}
-              />
-            </div>
+          <div className="w-full md:w-2/3 min-w-0">
+            <InputComponent
+              control={control}
+              type="password"
+              name="confirmPassword"
+              placeholder="Re-enter your password..."
+              errMsg={errors.confirmPassword?.message}
+            />
           </div>
+        </div>
 
-          {/* Confirm Password */}
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="confirmPassword"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Confirm Password:
-            </label>
+        {/* Role */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="role"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold wrap-break-word"
+          >
+            User Type (Role):
+          </label>
 
-            <div className="flex-1">
-              <InputComponent
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Your Password..."
-                onChange={() => { }}
-              />
-            </div>
+          <div className="w-full md:w-2/3 min-w-0">
+            <SelectComponent
+              name="role"
+              control={control}
+              errMsg={errors.role?.message}
+              options={[
+                {
+                  label: "Buyer",
+                  value: "customer",
+                },
+                {
+                  label: "Seller",
+                  value: "seller",
+                },
+              ]}
+            />
           </div>
+        </div>
 
+        {/* Gender */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="gender"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold"
+          >
+            Gender:
+          </label>
 
-
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="usertypes"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              User Role
-            </label>
-
-            <div className="flex-1">
-              <select
-                id="role"
-                name="role"
-                defaultValue=""
-                className="w-full rounded-lg border border-gray-300 px-3 py-2 text-teal-950"
-              >
-                <option value="" disabled>
-                  ~~ Select Role ~~
-                </option>
-                <option value="user">User</option>
-                <option value="admin">Admin</option>
-              </select>
-            </div>
+          <div className="w-full md:w-2/3 min-w-0">
+            <MultipleChoice
+              control={control}
+              name="gender"
+              errMsg={errors.gender?.message}
+              options={[
+                {
+                  label: "Male",
+                  value: "male",
+                },
+                {
+                  label: "Female",
+                  value: "female",
+                },
+                {
+                  label: "Other",
+                  value: "other",
+                },
+              ]}
+            />
           </div>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="usertypes"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Gender
-            </label>
+        {/* Address */}
+        <div className="w-full flex flex-col md:flex-row md:items-start gap-2 md:gap-4">
+          <label
+            htmlFor="address"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold"
+          >
+            Address:
+          </label>
 
-            <div className="w-2/3 flex gap-3">
-              <label htmlFor="male" className="flex gap-1 items-center">
-                <input type="radio" className="size-4" id="male" name="gender" value={"male"} />{" "}Male
-              </label>
-              <label htmlFor="male" className="flex gap-1 items-center">
-                <input type="radio" className="size-4" id="female" name="gender" value={"female"} />{" "}Female
-              </label>
-              <label htmlFor="male" className="flex gap-1 items-center">
-                <input type="radio" className="size-4" id="oters" name="gender" value={"others"} />{" "}Others
-              </label>
+          <div className="w-full md:w-2/3 min-w-0">
+            <textarea
+              id="address"
+              {...register("address")}
+              placeholder="Enter your address..."
+              rows={4}
+              className="
+                w-full
+                min-w-0
+                border border-gray-300
+                bg-gray-50
+                p-3
+                rounded-lg
+                shadow-sm
+                resize-none
+                outline-none
+                focus:ring-2
+                focus:ring-teal-500
+              "
+            />
 
-
-            </div>
+            {errors.address?.message && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.address.message}
+              </p>
+            )}
           </div>
+        </div>
 
-          <div className="flex items-center gap-3">
-            <label
-              htmlFor="usertypes"
-              className="w-28 shrink-0 text-sm sm:text-base text-teal-950 font-semibold"
-            >
-              Address
-            </label>
+        {/* Image */}
+        <div className="w-full flex flex-col md:flex-row md:items-center gap-2 md:gap-4">
+          <label
+            htmlFor="image"
+            className="w-full md:w-1/3 text-base sm:text-lg font-semibold"
+          >
+            Image:
+          </label>
 
-            <div className="w-2/3 ">
-            <textarea className="" name="address" id="" placeholder="Enter your address"></textarea>
-      
+          <div className="w-full md:w-2/3 min-w-0">
+            <input
+              id="image"
+              type="file"
+              accept="image/*"
+              {...register("image")}
+              className="
+                w-full
+                min-w-0
+                border border-gray-300
+                bg-gray-50
+                p-2
+                rounded-lg
+                shadow-sm
+                text-sm
+              "
+            />
 
-
-            </div>
-
+            {errors.image?.message && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.image.message}
+              </p>
+            )}
           </div>
+        </div>
 
+        {/* Buttons */}
+        <div className="w-full flex flex-col sm:flex-row gap-3 pt-2">
+          <Button type="reset" disabled={isSubmitting}>
+            <Icon icon="fa7-solid:undo" width={18} />
+            Reset
+          </Button>
 
-          {/* Submit Button */}
-          <div className="flex justify-center pt-2">
-            <button
-              type="submit"
-
-              className="bg-teal-950 text-white px-6 py-3 rounded-full
-                         font-medium
-                         hover:bg-teal-800
-                         disabled:bg-gray-400
-                         disabled:cursor-not-allowed
-                         transition-all duration-300
-                         shadow-sm hover:shadow-md"
-            >
-              Submit
-
-            </button>
-          </div>
-
-          {/* Login */}
-          <div className="flex justify-center items-center gap-2 pt-3 text-sm sm:text-base">
-            <span className="text-gray-800">
-              Already have an account?
-            </span>
-
-            <NavLink
-              to="/login"
-              className="text-blue-600 font-semibold hover:underline"
-            >
-              Login
-            </NavLink>
-          </div>
-
-        </form>
-      </div>
-    </div>
+          <Button type="submit" disabled={isSubmitting}>
+            <Icon icon="fa7-solid:paper-plane" width={18} />
+            {isSubmitting ? "Submitting..." : "Submit"}
+          </Button>
+        </div>
+      </form>
+    </section>
   );
-};
+}
+

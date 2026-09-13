@@ -1,10 +1,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router"
 
 
-import { RegistrationForm } from "../components/Auth/RegistrationForm"
+import RegisterPage from "../pages/auth/RegisterPage"
 import ForgetPassword from "../components/Auth/ForgetPassword"
 import UserDashboard from "../pages/dashboard/UserDashboard"
-import { LoginForm } from "../components/Auth/LoginForm"
 import HomePage from "../pages/HomePage"
 import CategoryPage from "../pages/dashboard/categories/CategoryPages"
 import UserPage from "../pages/dashboard/User/UsersPage"
@@ -15,12 +14,14 @@ import Order from "../pages/dashboard/order/Order"
 import NotFound from "../pages/error/NotFound"
 import { NotFoundComponent } from "../components/ui/errors/NotFound"
 import CategoryCreate from "../pages/dashboard/categories/Category-create"
+import LoginPage from "../pages/auth/LoginPage"
+import { Toaster } from "sonner"
 
 const router = createBrowserRouter([
     {path: "/", Component: HomePage, children: [
            
-            { index: true, Component: LoginForm },
-            { path: "register", Component: RegistrationForm },
+            { index: true, Component: LoginPage },
+            { path: "register", Component: RegisterPage },
             { path: "forget-password", Component: ForgetPassword },
             {path: "*", Component: NotFoundComponent}
     ]},
@@ -50,8 +51,11 @@ const router = createBrowserRouter([
 ])
 
 const RouterConfig = () => {
-    return (
+    return (<>
+        <Toaster closeButton richColors/>
         <RouterProvider router={router} />
+
+        </>
     )
 }
 

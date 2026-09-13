@@ -8,7 +8,7 @@ const ForgotPassword = () => {
  
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
+    <div className="h-[90vh] w-full flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
 
         {/* Header */}
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
         {/* Back to Login */}
         <div className="mt-6 text-center">
           <NavLink
-            to="/login"
+            to="/"
             className="text-sm font-medium text-blue-600 hover:underline"
           >
             ← Back to Login

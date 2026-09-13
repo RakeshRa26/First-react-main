@@ -96,5 +96,27 @@ function ComponentName({propsName, ..., children}: Readonly<{propsName: DataType
 
 
   ## Task
-  - *Iontrolled Input*
-  - *Incontrolled Input*
+  - *Controlled Input*
+  - *Uncontrolled Input*
+
+  # web storage 
+  -The stroage provided by client-side application(browser)
+  -e.g cookies, localstorage, sessionstorage, cashe, indexeDB, firebase storage
+
+  # global state (react/next application)
+  -context API
+  -Redux, zustand, jotai, etc...
+
+  # Cookies
+  - client side storage unit
+  - size: A cookie can have not more than 4096 byte(4KB)-name, value, all other attributes
+  - Quantity: Min suppport of 20 quantity, max: chrome:100, firefox: 150, safari: 50, edge: 50
+  - Expiry: chrome, firefox, Edge: 400 days and safari: 7 days
+  - `document.cookies` => `js-cookie`
+
+
+  # API (Thrid Party)
+  - Data database(SQL server, NoSQL server) (<======> Nodejs/php/python/java/.net <======>) Application(React, Mobile App, Desktop)
+  - Type: REST (REST, SOAP, GraphQl, gRPC, socket(WS))
+  - CRUD => Create (`post`), Read(`Get`), Update(`put` and `patch`), Delete(`delete`)
+  
