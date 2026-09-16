@@ -5,19 +5,11 @@ import { useForm } from "react-hook-form";
 import { FormLabel } from "../ui/form/Label";
 import { useNavigate } from "react-router";
 
-import * as z from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
-import axiosService from "../../Library/services/api.service";
 import { toast } from "sonner";
+import { useAuth } from "../../Library/hook/useAuth"
 
-
-
-const LoginDTO = z.object({
-  username: z.string().min(4, "Username must have at least 4 characters").max(30, "Username must not exceed 30 character"),
-  password: z.string().min(8, "Password must have at least 8 chatacters").max(32, "Password most not exceed 32 character")
-});
-
-export type CredentialsType = z.infer<typeof LoginDTO>
+import { LoginDTO, type CredentialsType } from "../../Library/types/AuthContract";
 
 export const LoginForm = () => {
 
@@ -28,14 +20,15 @@ export const LoginForm = () => {
 
   const navigate = useNavigate();
 
+  const {login} = useAuth()
+ 
   const submitHandle = async (data: CredentialsType) => {
 
     // API Server
 
     try {
-      const response = await axiosService.post("/auth/login", data, {
-        withCredentials: true
-      });
+      const response = await login(data);
+      
       toast.success("Login Success!", {
         description: `welcome to user panel, ${response?.firstName}! Access to the service from sidebar.`
       });
